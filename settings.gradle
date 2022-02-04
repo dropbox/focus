@@ -1,0 +1,9 @@
+pluginManagement {
+  includeBuild('focus-gradle-plugin')
+}
+
+plugins {
+  id("com.dropbox.focus")
+}
+
+rootProject.name = "focus-root"
