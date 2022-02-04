@@ -12,6 +12,7 @@ lib
 reports
 
 *.focus.gradle
+focus.settings.gradle
 
 .idea
 *.iml
