@@ -12,14 +12,14 @@ class FocusPlugin : Plugin<Settings> {
   override fun apply(target: Settings) = target.run {
     val extension = extensions.create<FocusExtension>("focus")
 
-    val focusFile = rootDir.resolve(DEFAULT_FOCUS_FILENAME)
-    if (focusFile.exists()) {
-      apply(from = rootDir.resolve(focusFile.readText()))
-    } else {
-      apply(from = DEFAULT_ALL_SETTINGS_FILENAME)
-    }
-
     gradle.settingsEvaluated {
+      val focusFile = rootDir.resolve(DEFAULT_FOCUS_FILENAME)
+      if (focusFile.exists()) {
+        apply(from = rootDir.resolve(focusFile.readText()))
+      } else {
+        apply(from = DEFAULT_ALL_SETTINGS_FILENAME)
+      }
+
       gradle.rootProject {
         tasks.register("clearFocus", ClearFocusTask(
           focusFileName = provider { DEFAULT_FOCUS_FILENAME }
