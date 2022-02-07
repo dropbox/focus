@@ -19,7 +19,7 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
 
   @TaskAction
   public fun createFocusSettings() {
-    val dependencies = project.collectDependencies()
+    val dependencies = project.collectDependencies().sortedBy { it.path }
 
     settingsFile.get().asFile.writer().use { writer ->
       writer.write("// ${project.path} specific settings\n")
@@ -39,7 +39,7 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
         .forEach { dep ->
           val gradleProjectPath = dep.path.substring(1).replace(":", "/")
           if (project.rootDir.resolve(gradleProjectPath) != dep.projectDir) {
-            writer.appendLine("project(\"${dep.path}\").projectDir = new File(\"$gradleProjectPath\")")
+            writer.appendLine("project(\"${dep.path}\").projectDir = new File(\"${dep.projectDir}\")")
           }
         }
     }
