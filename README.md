@@ -1,4 +1,4 @@
-# ð Focus
+# 🧘 Focus
 
 A Gradle plugin that generates a `settings.gradle` file containing a
 single project and it's dependencies, allowing you to focus on a specific
