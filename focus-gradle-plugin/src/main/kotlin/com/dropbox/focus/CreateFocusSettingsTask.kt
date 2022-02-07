@@ -4,16 +4,18 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.TaskProvider
-
-internal val Project.focusSettingsFileName: String get() = "${path.replace(":", "_")}.focus.gradle"
 
 @CacheableTask
 public abstract class CreateFocusSettingsTask : DefaultTask() {
+
+  @get:Input
+  public abstract val focusFileName: Property<String>
 
   @get:OutputFile
   public abstract val settingsFile: RegularFileProperty
@@ -56,10 +58,12 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
   }
 
   public companion object {
-    public operator fun invoke(): CreateFocusSettingsTask.() -> Unit = {
+    public operator fun invoke(
+      focusFileName: Provider<String>,
+    ): CreateFocusSettingsTask.() -> Unit = {
       group = FOCUS_TASK_GROUP
-
-      settingsFile.set(project.rootProject.layout.projectDirectory.file(project.focusSettingsFileName))
+      this.focusFileName.set(focusFileName)
+      settingsFile.set(focusFileName.flatMap { project.layout.buildDirectory.file(it) })
     }
   }
 }

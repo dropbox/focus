@@ -7,34 +7,46 @@ import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.register
 
 const val FOCUS_TASK_GROUP = "focus mode"
+const val CREATE_FOCUS_SETTINGS_TASK_NAME = "createFocusSettings"
+const val FOCUS_TASK_NAME = "focus"
+const val CLEAR_FOCUS_TASK_NAME = "clearFocus"
+val TASK_NAMES = setOf(
+  CREATE_FOCUS_SETTINGS_TASK_NAME,
+  FOCUS_TASK_NAME,
+  CLEAR_FOCUS_TASK_NAME,
+)
 
 class FocusPlugin : Plugin<Settings> {
   override fun apply(target: Settings) = target.run {
     val extension = extensions.create<FocusExtension>("focus")
 
     gradle.settingsEvaluated {
-      val focusFile = rootDir.resolve(DEFAULT_FOCUS_FILENAME)
-      if (focusFile.exists()) {
+      val requestingFocusTask = startParameter.taskNames
+        .map { it.substringAfterLast(":") }
+        .any { it in TASK_NAMES }
+
+      val focusFile = rootDir.resolve(extension.focusFileName.get())
+      if (!requestingFocusTask && focusFile.exists()) {
         apply(from = rootDir.resolve(focusFile.readText()))
       } else {
-        apply(from = DEFAULT_ALL_SETTINGS_FILENAME)
+        apply(from = extension.allSettingsFileName)
       }
 
       gradle.rootProject {
-        tasks.register("clearFocus", ClearFocusTask(
-          focusFileName = provider { DEFAULT_FOCUS_FILENAME }
+        tasks.register(CLEAR_FOCUS_TASK_NAME, ClearFocusTask(
+          focusFileName = extension.focusFileName
         ))
 
         subprojects {
-          plugins.withId("com.android.application") {
-            val createFocusSettingsTask = tasks
-              .register("createFocusSettings", CreateFocusSettingsTask.invoke())
-
-            tasks.register("focus", FocusTask(
-              focusFileName = provider { DEFAULT_FOCUS_FILENAME },
-              createFocusSettingsTaskProvider = createFocusSettingsTask
+          val createFocusSettingsTask = tasks
+            .register(CREATE_FOCUS_SETTINGS_TASK_NAME, CreateFocusSettingsTask(
+              focusFileName = extension.focusFileName
             ))
-          }
+
+          tasks.register(FOCUS_TASK_NAME, FocusTask(
+            moduleSettingsFile = createFocusSettingsTask.flatMap { it.settingsFile },
+            rootFocusFileName = extension.focusFileName,
+          ))
         }
       }
     }

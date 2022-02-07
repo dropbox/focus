@@ -11,8 +11,7 @@ out
 lib
 reports
 
-*.focus.gradle
-focus.settings.gradle
+settings-focus.gradle
 
 .idea
 *.iml
