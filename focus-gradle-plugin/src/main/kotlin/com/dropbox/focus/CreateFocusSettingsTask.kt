@@ -45,13 +45,20 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
     }
   }
 
-  private fun Project.collectDependencies(excludes: Set<Project> = emptySet()): Set<Project> {
-    return configurations.flatMap {
-      it.dependencies
-        .filterIsInstance<ProjectDependency>()
-        .filter { it.dependencyProject != this }
-        .flatMap { it.dependencyProject.collectDependencies(excludes) }
-    }.toSet().plus(this)
+  private fun Project.collectDependencies(): Set<Project> {
+    val result = mutableSetOf<Project>()
+    fun addDependent(project: Project) {
+      if (result.add(project)) {
+        project.configurations.forEach { config ->
+          config.dependencies.filterIsInstance<ProjectDependency>()
+            .map { it.dependencyProject }
+            .forEach(::addDependent)
+        }
+      }
+    }
+
+    addDependent(this)
+    return result
   }
 
   public companion object {
