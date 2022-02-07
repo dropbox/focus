@@ -14,9 +14,6 @@ import org.gradle.api.tasks.TaskAction
 @CacheableTask
 public abstract class CreateFocusSettingsTask : DefaultTask() {
 
-  @get:Input
-  public abstract val focusFileName: Property<String>
-
   @get:OutputFile
   public abstract val settingsFile: RegularFileProperty
 
@@ -58,12 +55,9 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
   }
 
   public companion object {
-    public operator fun invoke(
-      focusFileName: Provider<String>,
-    ): CreateFocusSettingsTask.() -> Unit = {
+    public operator fun invoke(): CreateFocusSettingsTask.() -> Unit = {
       group = FOCUS_TASK_GROUP
-      this.focusFileName.set(focusFileName)
-      settingsFile.set(focusFileName.flatMap { project.layout.buildDirectory.file(it) })
+      settingsFile.set(project.layout.buildDirectory.file("focus.settings.gradle"))
     }
   }
 }
