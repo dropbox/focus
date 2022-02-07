@@ -1,18 +1,10 @@
 # 🧘 Focus
 
-A Gradle plugin that generates a `settings.gradle` file containing a
-single project and it's dependencies, allowing you to focus on a specific
-feature or module without needing to sync the rest of your monorepo.
+A Gradle plugin that generates module-specific `settings.gradle` files, allowing you to focus on a specific feature or module without needing to sync the rest of your monorepo.
 
-The Focus plugin evaluates your project setup and creates a unique
-`settings.gradle` file for the module you want to focus on, which only
-includes the dependies required by that module.  It then creates a
-`focus.settings.gradle` file that references the currently focused module.
+The Focus plugin evaluates your project setup and creates a unique `settings.gradle` file for the module you want to focus on, which only includes the dependencies required by that module.  It then creates a `.focus` file that references the currently focused module.
 
-With these files in place only the modules that you need will be configured
-by Gradle when you sync your project.  Deleting the `focus.settings.gradle`
-file will revert to using the `settings-all.gradle` file to configure your
-entire project.
+With these files in place only the modules that you need will be configured by Gradle when you sync your project.  Deleting the `.focus` file, which can be done using the `clearFocus` task, will revert to using the includes file to configure your entire project.
 
 ### Setup
 
@@ -25,11 +17,10 @@ plugins {
 }
 ```
 
-Move all non-required `include` statements into `settings-all.gradle`. Projects that are always
-included can remain in your main `settings.gradle` file.
+Move all non-required `include` statements into `settings-all.gradle`. Projects that are always included can remain in your main `settings.gradle` file.
 
 ```groovy
-// settings-all.gradle.kts(.kts)
+// settings-all.gradle(.kts)
 include ':sample:app2'
 include ':sample:lib2c'
 include ':sample:lib-shared'
@@ -38,29 +29,24 @@ include ':sample:moved'
 project(':sample:moved').projectDir = new File("sample/lib-moved")
 ```
 
-Optionally configure the plugin, if you'd like to use different settings files than the defaults:
+Optionally configure the plugin if you'd like to use different settings files than the defaults:
 
 ```groovy
 // settings.gradle(.kts)
 focus {
   // The name of the settings file
-  allSettingsFileName = "settings-all.gradle.kts" // Default: "settings-all.gradle"
-  focusFileName = ".focus"  // Default: "settings-focus.gradle"
+  allSettingsFileName = "settings-all.gradle" // Default
+  focusFileName = ".focus"  // Default
 }
 ```
 
-Whether or not you configure a custom focus file, it should be added to your `.gitignore` file as
-its meant for a specific developer's workflow.
+Whether or not you configure a custom focus file, it should be added to your `.gitignore` file as its meant for a specific developer's workflow.
 
 ## Usage
 
-The Focus plugin adds a few tasks for you to interact with in your gradle builds. Using these tasks
-you can create module specific settings files that will be automatically used by Gradle to configure
-only the modules which are required.
+The Focus plugin adds a few tasks for you to interact with in your Gradle builds. Using these tasks you can create module specific settings files that will be automatically used by Gradle to configure only the modules which are required.
 
-For example, say you're currently working on the app module `:sample:app2` and only need to run that
-module and it's dependencies. You can use the following flow to reduce the number of modules that
-are loaded and synced into your IDE to speed up development.
+For example, say you're currently working on the app module `:sample:app2` and only need to run that module and it's dependencies. You can use the following flow to reduce the number of modules that are loaded and synced into your IDE to speed up development.
 
 ```shell
 # When you start work on the app2 module, bring it into focus
@@ -88,7 +74,7 @@ A `focus` task is added to all subprojects, and allows you to focus on just that
 
 A `createFocusSettings` task is created for each subproject, and is responsible for finding a
 module's dependencies and creating a module-specific settings file. This is a dependency of the
-`focus` task and likely not needed to be called on it's own.
+`focus` task and likely not necessary to call on it's own.
 
 ### clearFocus
 
