@@ -50,7 +50,7 @@ For example, say you're currently working on the app module `:sample:app2` and o
 
 ```shell
 # When you start work on the app2 module, bring it into focus
-./gradlew :sample:app2
+./gradlew :sample:app2:focus
 
 # Click the Sync Elephant to have your IDE reload the gradle config, and you'll only have
 # :sample:app2 and it's dependencies loaded by the IDE, allowing you to build and run the sample app
@@ -58,7 +58,7 @@ For example, say you're currently working on the app module `:sample:app2` and o
 
 # If you want to spend time in a specific dependency, you can bring that into focus and sync your
 # IDE for even more fine grained development
-./gradlew :sample:lib2b
+./gradlew :sample:lib2b:focus
 
 # When you want to clear focus and get back to the entire project, simply use the clearFocus task.
 ./gradlew clearFocus
