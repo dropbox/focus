@@ -18,20 +18,12 @@ buildscript {
 
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
-String resolvedJvmTarget = System.getenv().getOrDefault("ci_java_version", "1.8")
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
 
-//    pluginManager.withPlugin("org.jetbrains.kotlin.jvm") {
-//        project.tasks.withType(KotlinCompile).configureEach {
-//            kotlinOptions {
-//                jvmTarget = resolvedJvmTarget
-//            }
-//        }
-//    }
 }
 
 task clean(type: Delete) {

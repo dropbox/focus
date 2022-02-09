@@ -24,10 +24,13 @@ repositories {
 tasks.withType<KotlinCompile>().configureEach {
   kotlinOptions {
     jvmTarget = "1.8"
-
+    // Because Gradle's Kotlin handling is stupid, this falls out of date quickly
     apiVersion = "1.5"
     languageVersion = "1.5"
 
+    // We use class SAM conversions because lambdas compiled into invokedynamic are not
+    // Serializable, which causes accidental headaches with Gradle configuration caching. It's
+    // easier for us to just use the previous anonymous classes behavior
     @Suppress("SuspiciousCollectionReassignment")
     freeCompilerArgs += "-Xsam-conversion=class"
   }
@@ -39,5 +42,11 @@ gradlePlugin {
       id = "com.dropbox.focus"
       implementationClass = "com.dropbox.focus.FocusPlugin"
     }
+  }
+}
+
+tasks.register("printVersionName") {
+  doLast {
+    println VERSION_NAME
   }
 }
