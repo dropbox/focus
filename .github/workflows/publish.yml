@@ -33,7 +33,7 @@ jobs:
           java-version: 11
 
       - name: Test Plugin
-        run: ./gradlew -p focus-gradle-plugin clean check --stacktrace
+        run: ./gradlew -p focus-gradle-plugin clean check --no-daemon --stacktrace
 
       - name: (Fail-only) Bundle test reports
         if: failure()
@@ -60,7 +60,8 @@ jobs:
         run: echo "::set-output name=version::$(./gradlew -q -p focus-gradle-plugin printVersionName)"
 
       - name: Publish release (main only)
-        run: ./gradlew closeAndReleaseRepository --no-daemon --no-parallel
+        run: echo '${{ steps.get-version.outputs.version }}'
+        # ./gradlew -p focus-gradle-plugin closeAndReleaseRepository --no-daemon --no-parallel
         if: success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && !endsWith(${{ steps.get-version.outputs.version }}, '-SNAPSHOT')
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
