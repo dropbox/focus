@@ -4,18 +4,19 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 
-@CacheableTask
+@DisableCachingByDefault(because = "Not worth caching")
 public abstract class CreateFocusSettingsTask : DefaultTask() {
 
   @get:OutputFile
   public abstract val settingsFile: RegularFileProperty
+
+  init {
+    outputs.upToDateWhen { false }
+  }
 
   @TaskAction
   public fun createFocusSettings() {
