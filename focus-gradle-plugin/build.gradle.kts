@@ -47,7 +47,7 @@ gradlePlugin {
 
 tasks.register("printVersionName") {
   doLast {
-    val versionName: String by project
-    println(versionName)
+    val VERSION_NAME: String by project
+    println(VERSION_NAME)
   }
 }
