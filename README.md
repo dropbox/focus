@@ -12,10 +12,19 @@ Apply the plugin in your `settings.gradle` file.
 
 ```groovy
 // settings.gradle(.kts)
+pluginsManagement {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
 plugins {
   id("com.dropbox.focus")
 }
 ```
+
+Note that the plugin is currently published to Maven Central, so you need to add it to the repositories list in the `pluginsManagement` block.
 
 Move all non-required `include` statements into `settings-all.gradle`. Projects that are always included can remain in your main `settings.gradle` file.
 
