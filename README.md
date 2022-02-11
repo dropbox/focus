@@ -12,8 +12,17 @@ Apply the plugin in your `settings.gradle` file.
 
 ```groovy
 // settings.gradle(.kts)
+
+sourceControl {
+  gitRepository(URI.create("https://github.com/dropbox/focus.git")) {
+    plugins {
+      id("com.dropbox.focus")
+    }
+  }
+}
+
 plugins {
-  id("com.dropbox.focus")
+  id("com.dropbox.focus") version ("0.2.0")
 }
 ```
 
