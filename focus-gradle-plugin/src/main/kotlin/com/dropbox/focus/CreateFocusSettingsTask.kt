@@ -66,6 +66,7 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
     public operator fun invoke(): CreateFocusSettingsTask.() -> Unit = {
       group = FOCUS_TASK_GROUP
       settingsFile.set(project.layout.buildDirectory.file("focus.settings.gradle"))
+      notCompatibleWithConfigurationCache("This reads configurations from the project at action-time.")
     }
   }
 }
