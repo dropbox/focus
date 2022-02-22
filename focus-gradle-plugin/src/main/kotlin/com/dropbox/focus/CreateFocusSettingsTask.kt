@@ -3,6 +3,7 @@ package com.dropbox.focus
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ProjectDependency
+import org.gradle.api.artifacts.SelfResolvingDependency
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
@@ -51,7 +52,13 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
     fun addDependent(project: Project) {
       if (result.add(project)) {
         project.configurations.forEach { config ->
-          config.dependencies.filterIsInstance<ProjectDependency>()
+          config.dependencies
+            .onEach {
+              when (it) {
+                is SelfResolvingDependency -> it.resolve(true)
+              }
+            }
+            .filterIsInstance<ProjectDependency>()
             .map { it.dependencyProject }
             .forEach(::addDependent)
         }
