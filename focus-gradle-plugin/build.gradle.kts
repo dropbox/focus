@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost.S01
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -43,6 +44,10 @@ gradlePlugin {
       implementationClass = "com.dropbox.focus.FocusPlugin"
     }
   }
+}
+
+mavenPublish {
+  sonatypeHost = S01
 }
 
 tasks.register("printVersionName") {
