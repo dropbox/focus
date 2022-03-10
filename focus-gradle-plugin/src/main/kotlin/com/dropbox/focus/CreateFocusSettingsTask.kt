@@ -50,14 +50,10 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
   private fun Project.collectDependencies(): Set<Project> {
     val result = mutableSetOf<Project>()
     fun addDependent(project: Project) {
-      if (result.add(project)) {
-        project.configurations.forEach { config ->
+      val configuredProject = this.evaluationDependsOn(project.path)
+      if (result.add(configuredProject)) {
+        configuredProject.configurations.forEach { config ->
           config.dependencies
-            .onEach {
-              when (it) {
-                is SelfResolvingDependency -> it.resolve(true)
-              }
-            }
             .filterIsInstance<ProjectDependency>()
             .map { it.dependencyProject }
             .forEach(::addDependent)
