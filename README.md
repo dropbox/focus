@@ -20,7 +20,7 @@ pluginsManagement {
 }
 
 plugins {
-  id("com.dropbox.focus") version "0.2.0"
+  id("com.dropbox.focus") version "0.4.0"
 }
 ```
 
