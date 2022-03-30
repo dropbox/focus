@@ -2,7 +2,7 @@ public abstract class com/dropbox/focus/ClearFocusTask : org/gradle/api/DefaultT
 	public static final field Companion Lcom/dropbox/focus/ClearFocusTask$Companion;
 	public fun <init> ()V
 	public final fun clearFocus ()V
-	public abstract fun getFocusFileName ()Lorg/gradle/api/provider/Property;
+	public abstract fun getFocusFile ()Lorg/gradle/api/file/RegularFileProperty;
 }
 
 public final class com/dropbox/focus/ClearFocusTask$Companion {
@@ -52,6 +52,7 @@ public abstract class com/dropbox/focus/FocusTask : org/gradle/api/DefaultTask {
 	public abstract fun getFocusFile ()Lorg/gradle/api/file/RegularFileProperty;
 	public abstract fun getModuleSettingsFile ()Lorg/gradle/api/file/RegularFileProperty;
 	public abstract fun getRootFocusFileName ()Lorg/gradle/api/provider/Property;
+	public abstract fun getRootProjectDir ()Lorg/gradle/api/file/DirectoryProperty;
 }
 
 public final class com/dropbox/focus/FocusTask$Companion {

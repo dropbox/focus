@@ -1,7 +1,8 @@
 package com.dropbox.focus
 
+import java.io.File
 import org.gradle.api.DefaultTask
-import org.gradle.api.provider.Property
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -11,12 +12,13 @@ import org.gradle.api.tasks.TaskAction
 public abstract class ClearFocusTask : DefaultTask() {
 
   @get:Input
-  public abstract val focusFileName: Property<String>
+  public abstract val focusFile: RegularFileProperty
 
   @TaskAction
   public fun clearFocus() {
-    val focusFile = project.rootDir.resolve(focusFileName.get())
-    focusFile.delete()
+    if (focusFile.isPresent) {
+      focusFile.asFile.get().delete()
+    }
   }
 
   public companion object {
@@ -24,7 +26,7 @@ public abstract class ClearFocusTask : DefaultTask() {
       focusFileName: Provider<String>
     ): ClearFocusTask.() -> Unit = {
       group = FOCUS_TASK_GROUP
-      this.focusFileName.set(focusFileName)
+      this.focusFile.set(project.rootProject.layout.file(focusFileName.map { File(it) }))
     }
   }
 }
