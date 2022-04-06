@@ -26,23 +26,10 @@ public abstract class com/dropbox/focus/FocusExtension {
 	public final fun getFocusFileName ()Lorg/gradle/api/provider/Property;
 }
 
-public final class com/dropbox/focus/FocusExtensionKt {
-	public static final field DEFAULT_ALL_SETTINGS_FILENAME Ljava/lang/String;
-	public static final field DEFAULT_FOCUS_FILENAME Ljava/lang/String;
-}
-
 public final class com/dropbox/focus/FocusPlugin : org/gradle/api/Plugin {
 	public fun <init> ()V
 	public synthetic fun apply (Ljava/lang/Object;)V
 	public fun apply (Lorg/gradle/api/initialization/Settings;)V
-}
-
-public final class com/dropbox/focus/FocusPluginKt {
-	public static final field CLEAR_FOCUS_TASK_NAME Ljava/lang/String;
-	public static final field CREATE_FOCUS_SETTINGS_TASK_NAME Ljava/lang/String;
-	public static final field FOCUS_TASK_GROUP Ljava/lang/String;
-	public static final field FOCUS_TASK_NAME Ljava/lang/String;
-	public static final fun getTASK_NAMES ()Ljava/util/Set;
 }
 
 public abstract class com/dropbox/focus/FocusTask : org/gradle/api/DefaultTask {
