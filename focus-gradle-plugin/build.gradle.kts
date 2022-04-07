@@ -2,12 +2,12 @@ import com.vanniktech.maven.publish.SonatypeHost.S01
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `kotlin-dsl`
-    `java-gradle-plugin`
-    kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.dokka") version "1.6.10"
-    id("com.vanniktech.maven.publish") version "0.18.0"
-    id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.8.0"
+  `kotlin-dsl`
+  `java-gradle-plugin`
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.mavenPublish)
+  alias(libs.plugins.binaryCompatibilityValidator)
 }
 
 buildscript {
@@ -62,6 +62,16 @@ gradlePlugin {
 
 mavenPublish {
   sonatypeHost = S01
+}
+
+dependencies {
+  compileOnly(gradleApi())
+  implementation(platform(libs.kotlin.bom))
+  implementation(libs.kotlin.plugin)
+
+  testImplementation(gradleTestKit())
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
 }
 
 tasks.register("printVersionName") {
