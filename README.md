@@ -12,7 +12,7 @@ Apply the plugin in your `settings.gradle` file.
 
 ```groovy
 // settings.gradle(.kts)
-pluginsManagement {
+pluginManagement {
   repositories {
     mavenCentral()
     gradlePluginPortal()
