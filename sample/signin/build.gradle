@@ -1,3 +1,6 @@
+// This sample demonstrates an empty project that
+// simply allows you to focus a subset of projects.
+
 configurations.create("deps")
 
 dependencies {
