@@ -6,6 +6,7 @@ include(":sample:lib2a")
 include(":sample:lib2b")
 include(":sample:lib2c")
 include(":sample:lib-shared")
+include(":sample:signin")
 
 include(":sample:moved")
 project(":sample:moved").projectDir = File("sample/lib-moved")

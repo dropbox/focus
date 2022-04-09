@@ -1,0 +1,6 @@
+configurations.create("deps")
+
+dependencies {
+  deps(project(":sample:lib1b"))
+  deps(project(":sample:lib2b"))
+}
