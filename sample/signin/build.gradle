@@ -1,0 +1,9 @@
+// This sample demonstrates an empty project that
+// simply allows you to focus a subset of projects.
+
+configurations.create("deps")
+
+dependencies {
+  deps(project(":sample:lib1b"))
+  deps(project(":sample:lib2b"))
+}
