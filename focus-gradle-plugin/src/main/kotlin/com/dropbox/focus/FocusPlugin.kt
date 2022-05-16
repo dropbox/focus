@@ -69,8 +69,9 @@ public class FocusPlugin : Plugin<Settings> {
         ))
 
         subprojects {
+          val subExtension = extensions.create<FocusSubExtension>("focus")
           val createFocusSettingsTask = tasks
-            .register(CREATE_FOCUS_SETTINGS_TASK_NAME, CreateFocusSettingsTask.invoke())
+            .register(CREATE_FOCUS_SETTINGS_TASK_NAME, CreateFocusSettingsTask(subExtension))
 
           tasks.register(FOCUS_TASK_NAME, FocusTask(
             moduleSettingsFile = createFocusSettingsTask.flatMap { it.settingsFile },
