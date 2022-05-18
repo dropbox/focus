@@ -52,7 +52,6 @@ class FocusPluginTest {
 
   private fun GradleRunner.runFixture(
     projectRoot: File,
-    moduleRoot: File = projectRoot,
     action: GradleRunner.() -> BuildResult,
   ): BuildResult {
     val settings = File(projectRoot, "settings.gradle")
