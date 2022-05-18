@@ -6,6 +6,7 @@ import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Before
 import org.junit.Test
+
 class FocusPluginTest {
   private lateinit var gradleRunner: GradleRunner
 
@@ -34,6 +35,19 @@ class FocusPluginTest {
 
     assertThat(firstRun.output).contains("Could not read script")
     assertThat(firstRun.output).contains("as it does not exist.")
+  }
+
+  @Test
+  fun singleQuotePath() {
+    val fixtureRoot = File("src/test/projects/single-quote-path")
+
+    gradleRunner
+      .withArguments(":module:focus")
+      .runFixture(fixtureRoot) { build() }
+
+    val focusFileContent = File("src/test/projects/single-quote-path/build/notnowhere/build/focus.settings.gradle").readText()
+    assertThat(focusFileContent)
+      .containsMatch("""project\(\":module\"\).projectDir = new File\(\'.*/src/test/projects/single-quote-path/build/notnowhere\'\)""")
   }
 
   private fun GradleRunner.runFixture(
