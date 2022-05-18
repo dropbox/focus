@@ -1,5 +1,14 @@
 # Change Log
 
+## Version 0.5.0
+
+_2022-05-18_
+
+* Fixes issue with invalid escape characters in Windows path names. [#25](https://github.com/dropbox/focus/issues/25)
+* Adds tests [#16](https://github.com/dropbox/focus/pull/16)
+* Updates JVM release version [#15](https://github.com/dropbox/focus/pull/15)
+* Updates project references to use task inputs so tasks are compatible with Configuration Cache [#13](https://github.com/dropbox/focus/pull/13)
+
 ## Version 0.4.0
 
 _2022-03-10_
