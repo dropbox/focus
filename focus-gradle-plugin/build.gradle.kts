@@ -71,6 +71,7 @@ dependencies {
   compileOnly(libs.kotlin.plugin)
 
   testImplementation(gradleTestKit())
+  testImplementation(platform(libs.kotlin.bom))
   testImplementation(libs.kotlin.plugin)
   testImplementation(libs.junit)
   testImplementation(libs.truth)
