@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 0.5.1
+
+_2022-05-19_
+
+* Fix KGP dependency configuration. (Thanks [@ZacSweers]!) [#28](https://github.com/dropbox/focus/pull/28)
+
 ## Version 0.5.0
 
 _2022-05-18_
