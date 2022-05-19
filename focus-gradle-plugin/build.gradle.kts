@@ -67,9 +67,11 @@ mavenPublish {
 dependencies {
   compileOnly(gradleApi())
   implementation(platform(libs.kotlin.bom))
-  implementation(libs.kotlin.plugin)
+  // Don't impose our version of KGP on consumers
+  compileOnly(libs.kotlin.plugin)
 
   testImplementation(gradleTestKit())
+  testImplementation(libs.kotlin.plugin)
   testImplementation(libs.junit)
   testImplementation(libs.truth)
 }
