@@ -41,11 +41,21 @@ project(':sample:moved').projectDir = new File("sample/lib-moved")
 Optionally configure the plugin if you'd like to use different settings files than the defaults:
 
 ```groovy
-// settings.gradle(.kts)
+// settings.gradle
 focus {
   // The name of the settings file
   allSettingsFileName = "settings-all.gradle" // Default
   focusFileName = ".focus"  // Default
+}
+```
+
+```kotlin
+//
+// settings.gradle.kts
+configure<com.dropbox.focus.FocusExtension> {
+  // The name of the settings file
+  allSettingsFileName.set("settings-all.gradle") // Default
+  focusFileName.set(".focus") // Default
 }
 ```
 
