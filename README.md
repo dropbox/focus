@@ -50,7 +50,6 @@ focus {
 ```
 
 ```kotlin
-//
 // settings.gradle.kts
 configure<com.dropbox.focus.FocusExtension> {
   // The name of the settings file
@@ -59,7 +58,7 @@ configure<com.dropbox.focus.FocusExtension> {
 }
 ```
 
-Whether or not you configure a custom focus file, it should be added to your `.gitignore` file as its meant for a specific developer's workflow.
+Whether or not you configure a custom focus file, it should be added to your `.gitignore` file as it's meant for a specific developer's workflow.
 
 ## Usage
 
@@ -93,7 +92,7 @@ A `focus` task is added to all subprojects, and allows you to focus on just that
 
 A `createFocusSettings` task is created for each subproject, and is responsible for finding a
 module's dependencies and creating a module-specific settings file. This is a dependency of the
-`focus` task and likely not necessary to call on it's own.
+`focus` task and likely not necessary to call on its own.
 
 ### clearFocus
 
