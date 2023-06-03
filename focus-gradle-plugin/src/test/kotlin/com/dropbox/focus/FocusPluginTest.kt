@@ -46,8 +46,9 @@ class FocusPluginTest {
       .runFixture(fixtureRoot) { build() }
 
     val focusFileContent = File("src/test/projects/single-quote-path/build/notnowhere/build/focus.settings.gradle").readText()
-    assertThat(focusFileContent)
-      .containsMatch("""project\(\":module\"\).projectDir = new File\(\'.*/src/test/projects/single-quote-path/build/notnowhere\'\)""")
+    val absoluteFilePath = fixtureRoot.resolve("build/notnowhere").absolutePath.replace("\\", "\\\\")
+    // language=groovy
+    assertThat(focusFileContent).contains("""project(":module").projectDir = new File('$absoluteFilePath')""")
   }
 
   private fun GradleRunner.runFixture(
