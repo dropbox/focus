@@ -37,12 +37,13 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
       writer.appendLine()
 
       // Add overrides for projects with a root that's different from the gradle path
-      val literalQuoteChar = "'"
       dependencies
         .forEach { dep ->
           val gradleProjectPath = dep.path.substring(1).replace(":", "/")
           if (project.rootDir.resolve(gradleProjectPath) != dep.projectDir) {
-            writer.appendLine("project(\"${dep.path}\").projectDir = new File($literalQuoteChar${dep.projectDir}$literalQuoteChar)")
+            val gradleProjectDir = dep.projectDir.path.replace("\\", "\\\\")
+            // language=groovy
+            writer.appendLine("""project("${dep.path}").projectDir = new File('$gradleProjectDir')""")
           }
         }
     }
