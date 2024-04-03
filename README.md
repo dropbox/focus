@@ -64,7 +64,7 @@ Whether or not you configure a custom focus file, it should be added to your `.g
 
 The Focus plugin adds a few tasks for you to interact with in your Gradle builds. Using these tasks you can create module specific settings files that will be automatically used by Gradle to configure only the modules which are required.
 
-For example, say you're currently working on the app module `:sample:app2` and only need to run that module and it's dependencies. You can use the following flow to reduce the number of modules that are loaded and synced into your IDE to speed up development.
+For example, say you're currently working on the app module `:sample:app2` and only need to run that module and its dependencies. You can use the following flow to reduce the number of modules that are loaded and synced into your IDE to speed up development.
 
 ```shell
 # When you start work on the app2 module, bring it into focus
