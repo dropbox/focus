@@ -14,12 +14,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/actions/wrapper-validation@v3
 
       - name: Generate cache key
         run: .github/scripts/checksum.sh checksum.txt
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('checksum.txt') }}
@@ -27,7 +27,7 @@ jobs:
             ${{ runner.os }}-gradle
 
       - name: Install JDK 11
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: 11
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install JDK 11
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: 11
