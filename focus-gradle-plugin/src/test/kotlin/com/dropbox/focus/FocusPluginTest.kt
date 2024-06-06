@@ -2,17 +2,22 @@ package com.dropbox.focus
 
 import com.google.common.truth.Truth.assertThat
 import java.io.File
+import java.time.temporal.Temporal
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 
 class FocusPluginTest {
+  @get:Rule val buildDir = TemporaryFolder()
   private lateinit var gradleRunner: GradleRunner
 
   @Before
   fun setup() {
     gradleRunner = GradleRunner.create()
+      .withTestKitDir(buildDir.root)
       .withPluginClasspath()
   }
 
@@ -21,8 +26,16 @@ class FocusPluginTest {
     val fixtureRoot = File("src/test/projects/configuration-cache-compatible")
 
     gradleRunner
-      .withArguments("clearFocus", "--configuration-cache", "--stacktrace")
-      .runFixture(fixtureRoot) { build() }
+      .withArguments("--configuration-cache", "clearFocus")
+      .withProjectDir(fixtureRoot)
+      .build()
+
+    val result = gradleRunner
+      .withArguments("--configuration-cache", "clearFocus")
+      .withProjectDir(fixtureRoot)
+      .build()
+
+    assertThat(result.output).contains("Reusing configuration cache.")
   }
 
   @Test

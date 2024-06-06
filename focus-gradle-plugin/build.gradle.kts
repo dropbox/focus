@@ -28,12 +28,6 @@ tasks.withType<KotlinCompile>().configureEach {
     // Because Gradle's Kotlin handling is stupid, this falls out of date quickly
     apiVersion = "1.5"
     languageVersion = "1.5"
-
-    // We use class SAM conversions because lambdas compiled into invokedynamic are not
-    // Serializable, which causes accidental headaches with Gradle configuration caching. It's
-    // easier for us to just use the previous anonymous classes behavior
-    @Suppress("SuspiciousCollectionReassignment")
-    freeCompilerArgs += "-Xsam-conversion=class"
   }
 }
 
