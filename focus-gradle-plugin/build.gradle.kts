@@ -1,4 +1,4 @@
-import com.vanniktech.maven.publish.SonatypeHost.S01
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -54,8 +54,9 @@ gradlePlugin {
   }
 }
 
-mavenPublish {
-  sonatypeHost = S01
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.S01)
+  signAllPublications()
 }
 
 dependencies {
