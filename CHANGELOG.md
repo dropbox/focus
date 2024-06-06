@@ -1,5 +1,12 @@
 # Change Log
 
+## Version 0.6.0
+
+_2024-06-06_
+
+* Supports Windows file path separator (Thanks [@SimonMarquis]!) [#36](https://github.com/dropbox/focus/pull/36)
+* Adds support for Gradle 8.x. [#48](https://github.com/dropbox/focus/pull/48)
+
 ## Version 0.5.1
 
 _2022-05-19_

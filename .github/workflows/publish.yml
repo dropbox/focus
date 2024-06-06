@@ -60,20 +60,10 @@ jobs:
           distribution: 'zulu'
           java-version: 11
 
-      - name: Upload Snapshot
-        run: ./gradlew -p focus-gradle-plugin clean publish --no-daemon --no-parallel --no-configuration-cache --stacktrace
+      - name: Publish release
+        run: ./gradlew -p focus-gradle-plugin clean publishAndReleaseToMavenCentral --no-daemon --no-parallel --no-configuration-cache --stacktrace
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-
-      - name: Retrieve Version
-        run: echo "VERSION_NAME=$(./gradlew -q -p focus-gradle-plugin printVersionName)" >> $GITHUB_ENV
-
-      - name: Publish release (main only)
-        run: ./gradlew -p focus-gradle-plugin closeAndReleaseRepository --no-daemon --no-parallel
-        if: success() && !endsWith(env.VERSION_NAME, '-SNAPSHOT')
-        env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
