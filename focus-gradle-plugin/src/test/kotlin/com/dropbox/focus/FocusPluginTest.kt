@@ -21,7 +21,24 @@ class FocusPluginTest {
   }
 
   @Test
-  fun configurationCache() {
+  fun configurationCache_focus() {
+    val fixtureRoot = File("src/test/projects/configuration-cache-compatible")
+
+    gradleRunner
+      .withArguments("--configuration-cache", "focus")
+      .withProjectDir(fixtureRoot)
+      .build()
+
+    val result = gradleRunner
+      .withArguments("--configuration-cache", "focus")
+      .withProjectDir(fixtureRoot)
+      .build()
+
+    assertThat(result.output).contains("Reusing configuration cache.")
+  }
+
+  @Test
+  fun configurationCache_clear() {
     val fixtureRoot = File("src/test/projects/configuration-cache-compatible")
 
     gradleRunner
