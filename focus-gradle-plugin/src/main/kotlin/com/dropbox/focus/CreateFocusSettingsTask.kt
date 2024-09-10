@@ -63,7 +63,7 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
       // language=groovy
       writer.append(
         """
-        File f = new File("${modulesToDirMapFile.get().asFile.absolutePath}")
+        File f = new File('${modulesToDirMapFile.get().asFile.absolutePath}')
         if (f.exists()) {
           f.eachLine { line ->
             var values = line.split(",")
