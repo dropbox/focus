@@ -13,6 +13,7 @@ public abstract class com/dropbox/focus/CreateFocusSettingsTask : org/gradle/api
 	public static final field Companion Lcom/dropbox/focus/CreateFocusSettingsTask$Companion;
 	public fun <init> ()V
 	public final fun createFocusSettings ()V
+	public abstract fun getModulesToDirMapFile ()Lorg/gradle/api/file/RegularFileProperty;
 	public abstract fun getSettingsFile ()Lorg/gradle/api/file/RegularFileProperty;
 }
 
@@ -45,6 +46,7 @@ public final class com/dropbox/focus/FocusPlugin$apply$1$1$1$inlined$sam$i$org_g
 public abstract class com/dropbox/focus/FocusSubExtension {
 	public fun <init> (Lorg/gradle/api/file/ProjectLayout;Lorg/gradle/api/model/ObjectFactory;)V
 	public final fun getFocusSettingsFile ()Lorg/gradle/api/file/RegularFileProperty;
+	public final fun getModuleToDirMapFile ()Lorg/gradle/api/file/RegularFileProperty;
 }
 
 public abstract class com/dropbox/focus/FocusTask : org/gradle/api/DefaultTask {
