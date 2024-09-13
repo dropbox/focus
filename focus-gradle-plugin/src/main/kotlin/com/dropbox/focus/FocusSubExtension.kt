@@ -16,4 +16,7 @@ public abstract class FocusSubExtension @Inject constructor(
     layout.buildDirectory.file("focus.settings.gradle")
   )
 
+  public val moduleToDirMapFile: RegularFileProperty = objects.fileProperty().convention(
+    layout.buildDirectory.file("moduleToDirMap.csv")
+  )
 }
