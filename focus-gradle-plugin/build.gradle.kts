@@ -55,7 +55,7 @@ gradlePlugin {
 }
 
 mavenPublishing {
-  publishToMavenCentral(SonatypeHost.S01)
+  publishToMavenCentral(SonatypeHost.S01, true)
   signAllPublications()
 }
 
