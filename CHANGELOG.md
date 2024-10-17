@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 0.7.0
+
+_2024-10-17_
+
+* Updates build script generation to avoid files that are too large. (Thanks [@Mexator]) [#50](https://github.com/dropbox/focus/pull/50)
+
 ## Version 0.6.0
 
 _2024-06-06_
