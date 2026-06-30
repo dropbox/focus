@@ -68,7 +68,7 @@ public abstract class CreateFocusSettingsTask : DefaultTask() {
         configuredProject.configurations.forEach { config ->
           config.dependencies
             .filterIsInstance<ProjectDependency>()
-            .map { it.dependencyProject }
+            .map { project.project(it.path) }
             .forEach(::addDependent)
         }
       }
